@@ -1,6 +1,6 @@
 # Hypothesis
-yet another python wrapper for the hypothes.is api
 
+A python wrapper for the Hypothesis API
 ## Create an annotation using a TextQuoteSelector
 
 ```
