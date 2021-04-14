@@ -1,6 +1,6 @@
 # Hypothesis
 
-A python wrapper for the Hypothesis API. 
+A Python wrapper for the Hypothesis API. 
 
 ## Installation
 
