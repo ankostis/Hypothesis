@@ -1,6 +1,11 @@
 # Hypothesis
 
-A python wrapper for the Hypothesis API
+A python wrapper for the Hypothesis API. 
+
+## Installation
+
+`pip install hypothesis-api`
+
 ## Create an annotation using a TextQuoteSelector
 
 ```
@@ -38,5 +43,5 @@ payload = {
   }
 
 r = h.post_annotation(payload)
-print r.status_code
+print (r.status_code)
 ```
