@@ -142,11 +142,10 @@ class Hypothesis:
         if self.token:
             headers["Authorization"] = "Bearer " + self.token
         r = requests.get(query_url, headers=headers)
-        obj = r.json()
         if r.ok:
-            return obj
+            return r.json()
         else:
-            raise Exception( "reason %s data %s" % (r.reason, obj) )
+            raise Exception( "reason %s" % (r.reason) )
 
     def get_annotation(self, id=None):
         h_url = "%s/annotations/%s" % (self.api_url, id)
