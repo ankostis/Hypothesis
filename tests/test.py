@@ -7,6 +7,7 @@ class Test(unittest.TestCase):
             authority="hypothes.is",
             username=os.environ["HYPOTHESIS_USERNAME"],
             token=os.environ["HYPOTHESIS_TOKEN"],
+            max_search_results=100,
             debug=False,
         )
 
@@ -42,7 +43,15 @@ class Test(unittest.TestCase):
 
         self.current_id = None
 
-    def test_01_search_500(self):
+    def test_honor_default_max_search_results(self):
+        results = self.h.search_all()
+        i = 0
+        for result in results:
+            i += 1
+            pass
+        assert i == 100
+
+    def test_override_default_max_search_results(self):
         results = self.h.search_all({"max_results": 500})
         i = 0
         for result in results:
@@ -50,7 +59,7 @@ class Test(unittest.TestCase):
             pass
         assert i == 500
 
-    def test_02_post_and_delete_public_annotation(self):
+    def test_post_and_delete_public_annotation(self):
         r = self.h.post_annotation(self.payload)
         obj = r.json()
         assert r.status_code == 200
@@ -67,7 +76,7 @@ class Test(unittest.TestCase):
         with self.assertRaises(Exception):
             self.h.get_annotation(id)
 
-    def test_03_post_and_delete_group_annotation(self):
+    def test_post_and_delete_group_annotation(self):
         payload = self.payload
         payload["group"] = self.test_group
         r = self.h.post_annotation(payload)
@@ -86,7 +95,7 @@ class Test(unittest.TestCase):
         with self.assertRaises(Exception):
             self.h.get_annotation(id)
 
-    def test_04_parse_and_delete_public_annotation(self):
+    def test_and_delete_public_annotation(self):
         payload = self.payload
         r = self.h.post_annotation(payload)
         obj = r.json()
@@ -114,7 +123,7 @@ class Test(unittest.TestCase):
         with self.assertRaises(Exception):
             self.h.get_annotation(id)
 
-    def test_05_post_and_delete_public_pagenote(self):
+    def test_post_and_delete_public_pagenote(self):
         payload = self.payload
         del payload["target"]
         r = self.h.post_annotation(self.payload)
@@ -135,7 +144,7 @@ class Test(unittest.TestCase):
         with self.assertRaises(Exception):
             self.h.get_annotation(id)
 
-    def test_06_update_and_delete_group_annotation(self):
+    def test_update_and_delete_group_annotation(self):
         payload = self.payload
         payload["group"] = self.test_group
         r = self.h.post_annotation(payload)
@@ -164,7 +173,7 @@ class Test(unittest.TestCase):
         with self.assertRaises(Exception):
             self.h.get_annotation(id)
 
-    def test_07_post_invalid_payload_raises_exception(self):
+    def test_raise_exception_for_invalid_payload(self):
         payload = self.payload
         del payload["uri"]
         r = self.h.post_annotation(payload)
