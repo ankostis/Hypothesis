@@ -1,4 +1,4 @@
-﻿import json
+import json
 import re
 import requests
 from requests.adapters import HTTPAdapter
@@ -96,7 +96,7 @@ class Hypothesis:
             rows = obj["rows"]
             lr = len(rows)
             nresults += lr
-            if lr is 0:
+            if lr == 0:
                 return
 
             stop = None
